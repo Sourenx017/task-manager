@@ -4,6 +4,7 @@ import { MongoRepository } from 'typeorm';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dto/create-user-dto';
+import { ObjectId } from 'mongodb';
 
 @Injectable()
 export class UsersService {
@@ -31,5 +32,11 @@ export class UsersService {
 
   async findOneByEmail(email: string): Promise<User | null> {
     return this.userRepository.findOne({ where: { email } });
+  }
+
+  async findOneById(id: string): Promise<User | null> {
+    return this.userRepository.findOne({ 
+      where: { _id: new ObjectId(id) } 
+    });
   }
 }

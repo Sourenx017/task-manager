@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { UsersService } from '../../users/users.service';
+import { ObjectId } from 'mongodb';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -13,8 +14,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    // Retorna el usuario sin la contraseña para adjuntarlo a la request
-    const user = await this.usersService.findOneByEmail(payload.email);
+    const user = await this.usersService.findOneById(payload.sub);
     if (user) {
       const { password, ...result } = user;
       return result;

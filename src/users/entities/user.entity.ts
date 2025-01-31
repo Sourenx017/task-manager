@@ -1,7 +1,6 @@
 import { Entity, ObjectIdColumn, Column, OneToMany } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
-
 import { Task } from '../../tasks/entities/task.entity';
 import { Team } from '../../teams/entities/team.entity';
 
@@ -15,9 +14,9 @@ export class User {
   @ApiProperty({ example: 'user@example.com' })
   email: string;
 
-    @Exclude()
+  @Exclude()
   @Column()
-  password: string;  // Se excluirá en los DTOs de respuesta
+  password: string;
 
   @Column({ default: 'member' })
   @ApiProperty({ enum: ['admin', 'member'] })
@@ -27,5 +26,5 @@ export class User {
   tasks: Task[];
 
   @OneToMany(() => Team, team => team.owner)
-  teams: Team[];
+  ownedTeams: Team[];
 }

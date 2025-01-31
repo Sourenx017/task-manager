@@ -1,4 +1,4 @@
-import { Entity, ObjectIdColumn, Column, ManyToOne, OneToMany, ManyToMany } from 'typeorm';
+import { Entity, ObjectIdColumn, Column, ManyToOne } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from '../../users/entities/user.entity';
 import { Task } from '../../tasks/entities/task.entity';
@@ -13,13 +13,14 @@ export class Team {
   @ApiProperty({ example: 'Equipo de Desarrollo' })
   name: string;
 
-  @ManyToOne(() => User, (user) => user.teams)
+  @ManyToOne(() => User)
   @ApiProperty({ type: () => User })
   owner: User;
 
-  @OneToMany(() => Task, (task) => task.team)
-  tasks: Task[];
+  @Column()
+  @ApiProperty({ type: () => [String] })
+  memberIds: string[] = [];
 
-  @ManyToMany(() => User)
-  members: User[];
+  @Column(() => Task)
+  tasks: Task[];
 }
