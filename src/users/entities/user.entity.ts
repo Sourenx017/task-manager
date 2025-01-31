@@ -22,9 +22,9 @@ export class User {
   @ApiProperty({ enum: ['admin', 'member'] })
   role: string;
 
-  @OneToMany(() => Task, task => task.createdBy)
+  @OneToMany(() => Task, (task) => task.createdBy)
   tasks: Task[];
 
-  @OneToMany(() => Team, team => team.owner)
+  @OneToMany(() => Team, (team) => team.owner)
   ownedTeams: Team[];
 }

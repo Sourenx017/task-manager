@@ -34,28 +34,10 @@ export class TeamsController {
   }
 
   @Post(':id/members')
-  @ApiOperation({ 
-    summary: 'Agregar miembro', 
-    description: 'Agrega un nuevo miembro al equipo especificado' 
-  })
-  @ApiParam({ 
-    name: 'id', 
-    description: 'ID del equipo',
-    type: 'string'
-  })
-  @ApiResponse({ 
-    status: 200, 
-    description: 'Miembro agregado exitosamente',
-    type: Team
-  })
-  @ApiResponse({ 
-    status: 404, 
-    description: 'Equipo o usuario no encontrado' 
-  })
-  async addMember(
-    @Param('id') id: string, 
-    @Body() addMemberDto: AddMemberDto
-  ) {
+  @ApiOperation({ summary: 'Agregar miembro a equipo' })
+  @ApiResponse({ status: 200, description: 'Miembro agregado exitosamente' })
+  @ApiResponse({ status: 404, description: 'Equipo no encontrado' })
+  async addMember(@Param('id') id: string, @Body() addMemberDto: AddMemberDto) {
     return this.teamsService.addMember(id, addMemberDto);
   }
 
@@ -70,6 +52,7 @@ export class TeamsController {
     type: [Team]
   })
   async findAll(@CurrentUser() user: User) {
+    this.teamsService.logUserId(user.id);
     return this.teamsService.findAllForUser(user.id);
   }
 }

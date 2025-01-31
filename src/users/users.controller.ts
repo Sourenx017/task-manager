@@ -1,9 +1,11 @@
 import { Controller, Post, Get, UseGuards, Body } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../shared/guards/roles.guard';
 import { ApiBearerAuth, ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user-dto';
 import { User } from './entities/user.entity';
+import { Roles } from '../shared/decorators/roles.decorator';
 
 @ApiTags('users')
 @ApiBearerAuth('JWT')
@@ -12,6 +14,8 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
+  @Roles('admin')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ 
     summary: 'Crear usuario', 
     description: 'Crea un nuevo usuario en el sistema' 

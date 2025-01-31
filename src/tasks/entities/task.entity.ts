@@ -10,7 +10,7 @@ export class Task {
   id: string;
 
   @Column()
-  @ApiProperty({ example: 'Implementar autenticación' })
+  @ApiProperty({ example: 'Atomizar Componentes' })
   title: string;
 
   @Column({ default: 'pending' })

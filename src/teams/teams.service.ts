@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
+import { Injectable, BadRequestException, NotFoundException, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MongoRepository } from 'typeorm';
 import { Team } from './entities/team.entity';
@@ -9,6 +9,8 @@ import { ObjectId } from 'mongodb';
 
 @Injectable()
 export class TeamsService {
+  private readonly logger = new Logger(TeamsService.name);
+
   constructor(
     @InjectRepository(Team)
     private readonly teamRepository: MongoRepository<Team>,
@@ -30,7 +32,9 @@ export class TeamsService {
         owner,
         memberIds: [] 
       });
-      return this.teamRepository.save(team);
+      const savedTeam = await this.teamRepository.save(team);
+      this.logger.debug(`Created team: ${JSON.stringify(savedTeam)}`);
+      return savedTeam;
     } catch (error) {
       if (error.name === 'BSONError') {
         throw new BadRequestException('Invalid owner ID format');
@@ -78,19 +82,34 @@ export class TeamsService {
   async findAllForUser(userId: string): Promise<Team[]> {
     try {
       const userObjectId = new ObjectId(userId);
-      return this.teamRepository.find({
+      this.logger.debug(`Fetching teams for user ID: ${userId}`);
+      const teams = await this.teamRepository.find({
         where: {
           $or: [
-            { 'owner._id': userObjectId },
+            { 'owner.id': userId },
             { memberIds: userId }
           ]
         },
+        relations: ['owner']
       });
+
+      // Obtener detalles de los miembros
+      for (const team of teams) {
+        const members = await this.userRepository.findByIds(team.memberIds);
+        team['members'] = members;
+      }
+
+      this.logger.debug(`Found teams: ${JSON.stringify(teams)}`);
+      return teams;
     } catch (error) {
       if (error.name === 'BSONError') {
         throw new BadRequestException('Invalid user ID format');
       }
       throw error;
     }
+  }
+
+  logUserId(userId: string) {
+    this.logger.debug(`Current user ID: ${userId}`);
   }
 }
