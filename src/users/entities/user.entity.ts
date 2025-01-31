@@ -2,8 +2,8 @@ import { Entity, ObjectIdColumn, Column, OneToMany } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
 
-//import { Task } from '../../tasks/entities/task.entity';
-//import { Team } from '../../teams/entities/team.entity';
+import { Task } from '../../tasks/entities/task.entity';
+import { Team } from '../../teams/entities/team.entity';
 
 @Entity()
 export class User {
@@ -23,9 +23,9 @@ export class User {
   @ApiProperty({ enum: ['admin', 'member'] })
   role: string;
 
-  //@OneToMany(() => Task, task => task.createdBy)
-  //tasks: Task[];
+  @OneToMany(() => Task, task => task.createdBy)
+  tasks: Task[];
 
-  //@OneToMany(() => Team, team => team.owner)
-  //teams: Team[];
+  @OneToMany(() => Team, team => team.owner)
+  teams: Team[];
 }
