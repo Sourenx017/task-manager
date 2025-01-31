@@ -7,7 +7,6 @@ import { CreateUserDto } from './dto/create-user-dto';
 @ApiTags('users')
 @ApiBearerAuth()
 @Controller('users')
-@UseGuards(JwtAuthGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -16,6 +15,7 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAll() {
     return this.usersService.findAll();

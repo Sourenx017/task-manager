@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginUserDto } from '../users/dto/login-user.dto';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
@@ -15,6 +15,11 @@ export class AuthController {
       loginUserDto.email,
       loginUserDto.password,
     );
+    
+    if (!user) {
+      throw new UnauthorizedException('Credenciales inválidas');
+    }
+
     return this.authService.login(user);
   }
 }

@@ -1,5 +1,7 @@
 import { Entity, ObjectIdColumn, Column, OneToMany } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { Exclude } from 'class-transformer';
+
 //import { Task } from '../../tasks/entities/task.entity';
 //import { Team } from '../../teams/entities/team.entity';
 
@@ -13,6 +15,7 @@ export class User {
   @ApiProperty({ example: 'user@example.com' })
   email: string;
 
+    @Exclude()
   @Column()
   password: string;  // Se excluirá en los DTOs de respuesta
 
