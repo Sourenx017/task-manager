@@ -1,99 +1,131 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Task Manager API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Task Manager is a RESTful API built with **NestJS** and **MongoDB** for task and team management. It enables users to create, assign, and manage tasks within teams, featuring **JWT**-based authentication and user roles.
 
-## Description
+## Key Features
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **JWT Authentication**: User registration and login with roles (`admin` and `member`)
+- **Task Management**: CRUD operations for tasks with states (`pending`, `in-progress`, `completed`)
+- **Team Management**: Team creation and member assignment
+- **Relationships**: Tasks linked to users and teams
+- **API Documentation**: Built-in Swagger UI for endpoint exploration and testing
+- **Docker**: Ready-to-deploy configuration with Docker Compose
 
-## Project setup
+## Prerequisites
 
+- [Node.js](https://nodejs.org/) (v18 or higher)
+- [MongoDB](https://www.mongodb.com/) (v6.0 or higher)
+- [Docker](https://www.docker.com/) (optional, for deployment)
+
+## Installation
+
+1. Clone the repository
 ```bash
-$ npm install
+git clone https://github.com/your-username/task-manager.git
+cd task-manager
 ```
 
-## Compile and run the project
-
+2. Install dependencies
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
 ```
 
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+3. Configure environment variables
+Create a `.env` file in the project root with:
+```env
+JWT_SECRET=mySecretKey
+MONGO_URI=mongodb://root:rootpassword@localhost:27017/task-manager?authSource=admin
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
+4. Start services with Docker (optional)
 ```bash
-$ npm install -g mau
-$ mau deploy
+docker-compose up -d
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+5. Run the application
+```bash
+npm run start:dev
+```
 
-## Resources
+## Usage
 
-Check out a few resources that may come in handy when working with NestJS:
+### API Documentation
+Visit http://localhost:3000/api to explore the API with Swagger UI.
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### Main Endpoints
 
-## Support
+#### Authentication
+- `POST /auth/login`: Sign in
+- `POST /auth/register`: Register new user
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+#### Users
+- `POST /users`: Create new user (admin only)
+- `GET /users`: List all users (admin only)
 
-## Stay in touch
+#### Tasks
+- `POST /tasks`: Create new task
+- `GET /tasks`: List user's tasks
+- `PATCH /tasks/:id`: Update task
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+#### Teams
+- `POST /teams`: Create new team
+- `POST /teams/:id/members`: Add team member
+- `GET /teams`: List user's teams
+
+## Project Structure
+```
+task-manager/
+├── src/
+│   ├── auth/              # Authentication and JWT
+│   ├── tasks/             # Task management
+│   ├── teams/             # Team management
+│   ├── users/             # User management
+│   ├── shared/            # Common utilities
+│   ├── app.module.ts      # Main module
+│   └── main.ts            # Entry point
+├── test/                  # E2E tests
+├── docker-compose.yml     # Docker configuration
+└── .env                   # Environment variables
+```
+
+## Docker Deployment
+
+1. Build the image
+```bash
+docker-compose build
+```
+
+2. Start services
+```bash
+docker-compose up -d
+```
+
+3. Access the API at http://localhost:3000
+
+## Contributing
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is licensed under the MIT License.
+
+## Contact
+
+For questions or suggestions, please reach out:
+
+- Email: your.email@example.com
+- GitHub: [@your-username](https://github.com/your-username)
+
+---
+
+🚀 Thanks for using Task Manager!
