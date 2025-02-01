@@ -123,8 +123,8 @@ This project is licensed under the MIT License.
 
 For questions or suggestions, please reach out:
 
-- Email: your.email@example.com
-- GitHub: [@your-username](https://github.com/your-username)
+- Email: torrijosperezomar@gmail.com
+- GitHub: [@Sourenx017](https://github.com/sourenx017)
 
 ---
 
